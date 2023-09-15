@@ -6,6 +6,13 @@ const counterReducer = (state = { counter: 0 }, action = { type: "INC5", payload
             counter: state.counter + 1,
         };
     }
+
+    if (action.type === "INCBY2") {
+        return {
+            counter: state.counter + action.payload,
+        };
+    }
+
     if (action.type === "DEC") {
         if (state.counter === 0) {
             return {
@@ -16,9 +23,15 @@ const counterReducer = (state = { counter: 0 }, action = { type: "INC5", payload
             counter: state.counter - 1,
         };
     }
-    if (action.type === "INCBY5") {
+
+    if (action.type === "DECBY2") {
+        if (state.counter === 0) {
+            return {
+                counter: 0,
+            }
+        }
         return {
-            counter: state.counter + action.payload,
+            counter: state.counter - action.payload,
         };
     }
     return state;
