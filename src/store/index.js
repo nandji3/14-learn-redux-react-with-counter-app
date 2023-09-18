@@ -1,42 +1,20 @@
-import { createStore } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 
-const counterReducer = (state = { counter: 0 }, action = { type: "INC5", payload: 1 }) => {
-    if (action.type === "INC") {
-        return {
-            counter: state.counter + 1,
-        };
+import counterReducer from './counterSlice'
+import authReducer from './authSlice'
+
+// configureStore function better than combineReducer fn --> configureStore like create store but its merging multiple reducer into into one reducer easier there after. In configure store we pass not a reducer fn but an object. Its a configuration object expected by configureStore. A configuration object then set reducer object property
+
+//// ----> Our Global Store <---- ////
+const store = configureStore({
+    reducer: {
+        counter: counterReducer,
+        auth: authReducer
     }
+})
 
-    if (action.type === "INCBY") {
-        return {
-            counter: state.counter + action.payload,
-        };
-    }
-
-    if (action.type === "DEC") {
-        if (state.counter === 0) {
-            return {
-                counter: 0,
-            }
-        }
-        return {
-            counter: state.counter - 1,
-        };
-    }
-
-    if (action.type === "DECBY") {
-        if (state.counter === 0) {
-            return {
-                counter: 0,
-            }
-        }
-        return {
-            counter: state.counter - action.payload,
-        };
-    }
-    return state;
-};
-
-const store = createStore(counterReducer);
-
+//// ----> export our globalStore <---- ////
 export default store;
+
+
+
